@@ -2,14 +2,8 @@ import React from 'react'
 import {useState, useEffect} from 'react';
 import Movie from './Movie';
 
-const Movies = ({movies, setMovies}) => {
+const Movies = ({movies, setMovies, removeFilm}) => {
 
-
-     const removeFilm = (movie) => {
-        const newFilms = movies.filter((m) => m.title != movie.title);
-        localStorage.setItem('movies', JSON.stringify(newFilms));
-        setMovies(newFilms);
-     }
 
      const sortByTitle = () => {
         const sortedFilms = movies.toSorted((a, b) => a.title.localeCompare(b.title));

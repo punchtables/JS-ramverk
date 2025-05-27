@@ -7,7 +7,11 @@ const MovieApplication = () => {
 
   const [movies, setMovies] = useState(() =>{
           const moviesFromStorage = JSON.parse(localStorage.getItem('movies'));
-          return moviesFromStorage;
+          var movies = [];
+          if(moviesFromStorage){
+            movies = moviesFromStorage;
+          }
+          return movies;
       });
 
       const [title, setTitle] = useState('');
@@ -31,13 +35,19 @@ const MovieApplication = () => {
         setRate(0);
 
     }
+
+    const removeFilm = (movie) => {
+        const newFilms = movies.filter((m) => m.title != movie.title);
+        localStorage.setItem('movies', JSON.stringify(newFilms));
+        setMovies(newFilms);
+     }
   
   return (
     <>
     <div className="">
         <h1>Min filmlista</h1>
         <AddMovieForm addMovie = {addMovie} title = {title} setTitle={setTitle} rate = {rate} setRate={setRate}/>
-        <Movies movies = {movies} setMovies = {setMovies}/>
+        <Movies movies = {movies} setMovies = {setMovies} removeFilm = {removeFilm}/>
     </div>
     </>
   )
